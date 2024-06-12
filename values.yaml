@@ -1,0 +1,11 @@
+FQDN: "foundry.example.com"
+username: "foundryuser"
+password: "foundrypass"
+adminpass: "adminpass"
+licensekey: "licensekey"
+usessl: true
+
+shorthost: "foundry"
+configsize: "20Gi"
+hostconfigpath: "/opt/foundry/"
+

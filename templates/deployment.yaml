@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: foundry
+spec:
+  template:
+    metadata:
+      name: foundry-app
+      labels: 
+        name: foundry-app
+    spec:
+      volumes:
+        - name: fdata
+          persistentVolumeClaim:
+            claimName: foundry-config-claim
+      containers:
+      - name: foundryvtt
+        image: felddy/foundryvtt:release
+        env:
+        - name: FOUNDRY_USERNAME
+          value: "{{ .Values.username }}"
+        - name: FOUNDRY_PASSWORD
+          value: "{{ .Values.password }}"
+        - name: FOUNDRY_ADMIN_KEY
+          value: "{{ .Values.adminpass }}"
+        - name: FOUNDRY_LICENSE_KEY
+          value: "{{ .Values.licensekey }}"
+        volumeMounts:
+        - name: fdata
+          mountPath: "/data"
+        imagePullPolicy: IfNotPresent
+  replicas: 1 
+  selector:
+    matchLabels:
+      name: foundry-app
